@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dark-bg: #123;
+  --dark-bg-2: #012;
+  --dark-fg: white;
+  --dark-fg-2: #f5f5f5;
+
+  --light-bg: white;
+  --light-bg-2: #f5f5f5;
+  --light-fg: black;
+  --light-fg-2: #123;
+
+  --bg-color: var(--light-bg);
+  --bg-color-2: var(--light-bg-2);
+  --fg-color: var(--light-fg);
+  --fg-color-2: var(--light-fg-2);
+}
+
+body {
+  color: var(--fg-color);
+  background-color: var(--bg-color);
+
+  &.dark {
+    --bg-color: var(--dark-bg);
+    --bg-color-2: var(--dark-bg-2);
+    --fg-color: var(--dark-fg);
+    --fg-color-2: var(--dark-fg-2);
+  }
+
+  &.light {
+    --bg-color: var(--light-bg);
+    --bg-color-2: var(--light-bg-2);
+    --fg-color: var(--light-fg);
+    --fg-color-2: var(--light-fg-2);
+  }
+}

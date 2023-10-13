@@ -1,0 +1,11 @@
+.Header {
+  @apply px-4 py-2 bg-[--bg-color-2];
+
+  .wrapper {
+    @apply mx-auto max-w-7xl flex items-center justify-between;
+
+    .title {
+      @apply text-xl font-bold;
+    }
+  }
+}
