@@ -2,7 +2,7 @@
   @apply pointer-events-none;
 
   .wrapper {
-    @apply p-1 rounded-2xl bg-[--bg-color] w-14 relative pointer-events-auto;
+    @apply p-1 rounded-2xl bg-[--bg-color] w-14 relative pointer-events-auto cursor-pointer;
 
     .toggle {
       @apply w-6 aspect-square rounded-full bg-[--bg-color-2] relative left-0 transition-[left];

@@ -1,0 +1,18 @@
+.ActivityLog {
+  --border-radios: 14px;
+  --inner-border-radios: calc(var(--border-radios) - 1px);
+
+  @apply border border-[--border-color] h-full rounded-[--border-radios] flex flex-col;
+
+  & > .header {
+    @apply p-4 bg-[--bg-color-2] rounded-t-[--inner-border-radios];
+  }
+
+  & > .body {
+    @apply h-full;
+  }
+
+  & > .footer {
+    @apply p-4 bg-[--bg-color-2] rounded-b-[--inner-border-radios];
+  }
+}

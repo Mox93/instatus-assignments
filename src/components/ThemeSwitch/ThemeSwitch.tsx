@@ -7,14 +7,18 @@ import LightIcon from "@/assets/icons/light-theme.svg";
 
 export default function ThemeSwitch() {
   const [darkMode, setDarkMode] = useState(() => {
-    const _theme = localStorage.getItem("theme");
+    if (typeof localStorage !== "undefined") {
+      const _theme = localStorage.getItem("theme");
 
-    if (_theme) return _theme === "dark";
+      if (_theme) return _theme === "dark";
+    }
 
-    return (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    );
+    if (typeof window !== "undefined") {
+      return (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      );
+    }
   });
 
   useEffect(() => {

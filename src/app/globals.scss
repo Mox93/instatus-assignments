@@ -3,20 +3,35 @@
 @tailwind utilities;
 
 :root {
-  --dark-bg: #123;
-  --dark-bg-2: #012;
+  --dark-bg: #012;
+  --dark-bg-2: #123;
   --dark-fg: white;
-  --dark-fg-2: #f5f5f5;
+  --dark-fg-2: #969696;
+  --dark-border-color: #234;
+  --dark-border-color-2: #345;
+  --dark-border-color-3: #456;
+  --dark-hover-color: rgba(255, 255, 255, 0.05);
 
   --light-bg: white;
   --light-bg-2: #f5f5f5;
   --light-fg: black;
-  --light-fg-2: #123;
+  --light-fg-2: #575757;
+  --light-border-color: #f0f0f0;
+  --light-border-color-2: #dfdfdf;
+  --light-border-color-3: #e0e0df;
+  --light-hover-color: rgba(0, 0, 0, 0.05);
 
   --bg-color: var(--light-bg);
   --bg-color-2: var(--light-bg-2);
   --fg-color: var(--light-fg);
   --fg-color-2: var(--light-fg-2);
+  --border-color: var(--light-border-color);
+  --border-color-2: var(--light-border-color-2);
+  --border-color-3: var(--light-border-color-3);
+  --hover-color: var(--light-hover-color);
+
+  --header-height: 3rem;
+  --body-height: calc(100vh - var(--header-height));
 }
 
 body {
@@ -28,6 +43,10 @@ body {
     --bg-color-2: var(--dark-bg-2);
     --fg-color: var(--dark-fg);
     --fg-color-2: var(--dark-fg-2);
+    --border-color: var(--dark-border-color);
+    --border-color-2: var(--dark-border-color-2);
+    --border-color-3: var(--dark-border-color-3);
+    --hover-color: var(--dark-hover-color);
   }
 
   &.light {
@@ -35,5 +54,9 @@ body {
     --bg-color-2: var(--light-bg-2);
     --fg-color: var(--light-fg);
     --fg-color-2: var(--light-fg-2);
+    --border-color: var(--light-border-color);
+    --border-color-2: var(--light-border-color-2);
+    --border-color-3: var(--light-border-color-3);
+    --hover-color: var(--light-hover-color);
   }
 }

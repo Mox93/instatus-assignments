@@ -1,0 +1,38 @@
+.SearchBar {
+  @apply h-11 ps-3 flex items-center outline outline-1 outline-[--border-color-3] rounded-lg focus-within:outline-2;
+
+  & > .field {
+    @apply bg-transparent w-full focus:outline-none;
+  }
+
+  & > .action {
+    @apply h-full px-4 flex items-center gap-1 border-s border-[--border-color-3] text-[--fg-color-2];
+
+    &:hover {
+      @apply bg-[--hover-color];
+    }
+
+    & > svg {
+      @apply w-4 h-5;
+
+      &,
+      & * {
+        @apply fill-[--fg-color-2];
+      }
+    }
+
+    &.export {
+      & > svg {
+        @apply relative top-[-2px];
+      }
+    }
+
+    .spot {
+      @apply w-4 h-4 rounded-full bg-gradient-to-br from-red-700 to-red-950;
+
+      &.on {
+        @apply from-green-400 to-green-600;
+      }
+    }
+  }
+}

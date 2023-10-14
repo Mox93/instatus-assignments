@@ -1,5 +1,5 @@
 .Header {
-  @apply px-4 py-2 bg-[--bg-color-2];
+  @apply px-4 py-2 bg-[--bg-color-2] h-[--header-height];
 
   .wrapper {
     @apply mx-auto max-w-7xl flex items-center justify-between;
