@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Actor } from "next/font/google";
+import { Inter } from "next/font/google";
 
 import "./globals.scss";
 import Header from "@/components/Header";
 
-const actor = Actor({ weight: "400", subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "InstaLog",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={actor.className}>
+      <body className={inter.className}>
         <Header />
         {children}
       </body>

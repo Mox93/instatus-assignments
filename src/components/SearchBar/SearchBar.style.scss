@@ -16,7 +16,7 @@
       @apply w-4 h-5;
 
       &,
-      & * {
+      * {
         @apply fill-[--fg-color-2];
       }
     }

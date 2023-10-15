@@ -1,8 +1,8 @@
 .Header {
-  @apply px-4 py-2 bg-[--bg-color-2] h-[--header-height];
+  @apply px-14 py-2 bg-[--bg-color-2] h-[--header-height] sticky top-0 z-50;
 
   .wrapper {
-    @apply mx-auto max-w-7xl flex items-center justify-between;
+    @apply mx-auto flex items-center justify-between;
 
     .title {
       @apply text-xl font-bold;

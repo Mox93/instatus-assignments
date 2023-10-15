@@ -2,10 +2,18 @@
   --border-radios: 14px;
   --inner-border-radios: calc(var(--border-radios) - 1px);
 
-  @apply border border-[--border-color] h-full rounded-[--border-radios] flex flex-col;
+  @apply h-full border border-[--border-color] rounded-[--border-radios] flex flex-col shadow-sm;
 
   & > .header {
-    @apply p-4 bg-[--bg-color-2] rounded-t-[--inner-border-radios];
+    @apply p-4 bg-[--bg-color-2] rounded-t-[--inner-border-radios] sticky top-0;
+
+    .labels {
+      @apply px-2 mt-4 flex gap-3 text-[--fg-color-2] font-semibold;
+
+      & > * {
+        @apply w-1/3;
+      }
+    }
   }
 
   & > .body {
@@ -13,6 +21,14 @@
   }
 
   & > .footer {
-    @apply p-4 bg-[--bg-color-2] rounded-b-[--inner-border-radios];
+    @apply p-4 bg-[--bg-color-2] rounded-b-[--inner-border-radios] flex justify-center;
+
+    .load {
+      @apply font-semibold text-[--fg-color-2] hover:text-[--fg-color];
+
+      &:focus {
+        @apply text-[--fg-color] outline-none;
+      }
+    }
   }
 }
