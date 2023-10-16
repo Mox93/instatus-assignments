@@ -5,7 +5,7 @@
   @apply h-full border border-[--border-color] rounded-[--border-radios] flex flex-col shadow-sm;
 
   & > .header {
-    @apply p-4 bg-[--bg-color-2] rounded-t-[--inner-border-radios] sticky top-0;
+    @apply p-4 bg-[--bg-color-2] rounded-t-[--inner-border-radios];
 
     .labels {
       @apply px-2 mt-4 flex gap-3 text-[--fg-color-2] font-semibold;
@@ -18,16 +18,37 @@
 
   & > .body {
     @apply h-full;
+
+    .errorMessage {
+      @apply p-4 text-red-500 font-medium text-center;
+    }
+
+    .loadingMessage {
+      @apply p-4 text-[--fg-color-3] font-medium text-center;
+    }
   }
 
   & > .footer {
     @apply p-4 bg-[--bg-color-2] rounded-b-[--inner-border-radios] flex justify-center;
 
     .load {
-      @apply font-semibold text-[--fg-color-2] hover:text-[--fg-color];
+      @apply relative font-semibold text-[--fg-color-2] hover:text-[--fg-color];
 
       &:focus {
         @apply text-[--fg-color] outline-none;
+      }
+
+      .loadingSpinner {
+        @apply absolute -end-6 top-1/2 -translate-y-1/2;
+
+        & > svg {
+          @apply w-5 h-5 animate-spin;
+
+          &,
+          * {
+            @apply stroke-[--fg-color-2];
+          }
+        }
       }
     }
   }

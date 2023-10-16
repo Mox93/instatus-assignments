@@ -1,0 +1,31 @@
+.IconButton {
+  @apply w-8 h-8 rounded-full flex items-center justify-center hover:bg-[--hover-color];
+
+  body.dark & {
+    svg,
+    svg * {
+      @apply fill-slate-800;
+    }
+
+    &:hover {
+      svg,
+      svg * {
+        @apply fill-slate-700;
+      }
+    }
+  }
+
+  body.light & {
+    svg,
+    svg * {
+      @apply fill-slate-200;
+    }
+
+    &:hover {
+      svg,
+      svg * {
+        @apply fill-slate-300;
+      }
+    }
+  }
+}

@@ -40,43 +40,6 @@
   }
 
   .action {
-    @apply w-8 h-8 rounded-full absolute top-3 end-3 flex items-center justify-center;
-
-    &:hover {
-      @apply bg-[--hover-color];
-
-      svg,
-      svg * {
-        @apply fill-[--fg-color-3];
-      }
-    }
-
-    body.dark & {
-      svg,
-      svg * {
-        @apply fill-slate-800;
-      }
-
-      &:hover {
-        svg,
-        svg * {
-          @apply fill-slate-700;
-        }
-      }
-    }
-
-    body.light & {
-      svg,
-      svg * {
-        @apply fill-slate-200;
-      }
-
-      &:hover {
-        svg,
-        svg * {
-          @apply fill-slate-300;
-        }
-      }
-    }
+    @apply absolute top-3 end-3;
   }
 }

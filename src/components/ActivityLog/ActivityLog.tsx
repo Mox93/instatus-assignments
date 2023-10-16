@@ -1,205 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo } from "react";
 
+import LoadingIcon from "@/assets/icons/loading.svg";
 import SearchBar from "@/components/SearchBar";
 import Item from "@/components/Item";
-import { EventLog } from "@/types";
-
-const events: EventLog[] = [
-  {
-    id: "evt_15B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_25B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_35B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_45B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_55B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_65B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_75B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_85B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_95B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-];
+import { useEvents, useDashboardControls } from "@/hooks";
 
 export default function ActivityLog() {
-  const [selected, setSelected] = useState<string>();
+  const loadMore = useDashboardControls((store) => store.loadMore);
+  const isLoading = useDashboardControls((store) => store.isLoading);
+  const page = useDashboardControls((store) => store.page);
+
+  const pages = useMemo(() => {
+    const list: number[] = [];
+
+    for (let i = 1; i <= page; i++) list.push(i);
+
+    return list;
+  }, [page]);
+
+  useEffect(() => {
+    useDashboardControls.setState({ pageSize: 5 });
+  }, []);
 
   return (
     <div className="ActivityLog">
@@ -212,19 +35,50 @@ export default function ActivityLog() {
         </div>
       </div>
       <div className="body">
-        {events.map((data) => (
-          <Item
-            key={data.id}
-            data={data}
-            expanded={selected === data.id}
-            select={() => setSelected(data.id)}
-            unselect={() => setSelected(undefined)}
-          />
+        {pages.map((i) => (
+          <Page key={i} index={i} />
         ))}
       </div>
       <div className="footer">
-        <button className="load">LOAD MORE</button>
+        <button className="load" onClick={loadMore} disabled={isLoading}>
+          LOAD MORE
+          {isLoading && (
+            <div className="loadingSpinner">
+              <LoadingIcon />
+            </div>
+          )}
+        </button>
       </div>
     </div>
+  );
+}
+
+function Page({ index }: { index: number }) {
+  const selected = useDashboardControls((store) => store.selected);
+  const setSelected = useDashboardControls((store) => store.setSelected);
+  const setIsLoading = useDashboardControls((store) => store.setIsLoading);
+
+  const { data: events, error, isLoading } = useEvents(index);
+
+  useEffect(() => {
+    setIsLoading(index, isLoading);
+  }, [index, isLoading, setIsLoading]);
+
+  return (
+    <>
+      {error ? <p className="errorMessage">Something went wrong!</p> : null}
+      {events?.map((data) => (
+        <Item
+          key={data.id}
+          data={data}
+          expanded={selected === data.id}
+          select={() => setSelected(data.id)}
+          unselect={() => setSelected(undefined)}
+        />
+      ))}
+      {isLoading && !events?.length ? (
+        <p className="loadingMessage">Loading...</p> // TODO replace with skeleton
+      ) : null}
+    </>
   );
 }

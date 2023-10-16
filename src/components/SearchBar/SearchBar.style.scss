@@ -2,15 +2,15 @@
   @apply h-11 ps-3 flex items-center outline outline-1 outline-[--border-color-3] rounded-lg focus-within:outline-2;
 
   & > .field {
-    @apply bg-transparent w-full focus:outline-none;
+    @apply bg-transparent flex-1 focus:outline-none;
+  }
+
+  & > .clearSearch {
+    @apply mx-2;
   }
 
   & > .action {
-    @apply h-full px-4 flex items-center gap-1 border-s border-[--border-color-3] text-[--fg-color-2];
-
-    &:hover {
-      @apply bg-[--hover-color];
-    }
+    @apply h-full px-4 flex items-center gap-1 border-s border-[--border-color-3] text-[--fg-color-2] hover:bg-[--hover-color];
 
     & > svg {
       @apply w-4 h-5;

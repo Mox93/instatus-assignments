@@ -4,6 +4,7 @@ import { useMemo } from "react";
 
 import ArrowIcon from "@/assets/icons/arrow.svg";
 import CloseIcon from "@/assets/icons/close.svg";
+import IconButton from "@/components/IconButton";
 import { EventLog } from "@/types";
 import { cn } from "@/utils";
 
@@ -105,9 +106,11 @@ export default function Item({
           <span>{occurred_at}</span>
         )}
       </div>
-      <button onClick={expanded ? unselect : select} className="action">
-        {expanded ? <CloseIcon /> : <ArrowIcon />}
-      </button>
+      <IconButton
+        onClick={expanded ? unselect : select}
+        className="action"
+        icon={expanded ? <CloseIcon /> : <ArrowIcon />}
+      />
     </div>
   );
 }
@@ -122,12 +125,14 @@ function Section({ title, data }: SectionProps) {
     <div className="section">
       <h3 className="title">{title}</h3>
       <table>
-        {data.map(([key, val], i) => (
-          <tr className="row" key={i}>
-            <td className="label">{key}</td>
-            <td className="info" title={`${val}`}>{`${val}`}</td>
-          </tr>
-        ))}
+        <tbody>
+          {data.map(([key, val], i) => (
+            <tr className="row" key={i}>
+              <td className="label">{key}</td>
+              <td className="info" title={`${val}`}>{`${val}`}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
