@@ -1,199 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
-import { EventLog } from "@/types";
-import { toInt } from "@/utils";
+import { EventLog, eventRequestSchema, eventResponseSchema } from "@/types";
+import { getAction, getActor, getTarget, makeId, toInt } from "@/utils";
 
-const db: EventLog[] = [
-  {
-    id: "evt_15B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Mohamed Ragaiy",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "mox@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_25B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_35B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Saad Kamal",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "saad@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-10-08T12:45:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_45B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Samy Ahmed",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "samy@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2023-08-18T09:22:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_55B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_65B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2021-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_75B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_85B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Fathi Saleh",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "fathi@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-  {
-    id: "evt_95B56WILKW5K",
-    object: "event",
-    actor_id: "user_3VG74289PUA2",
-    actor_name: "Ali Salah",
-    group: "instatus.com",
-    action: {
-      id: "evt_action_PGTD81NCAOQ2",
-      object: "event_action",
-      name: "user.login_succeeded",
-    },
-    target_id: "user_DOKVD1U3L030",
-    target_name: "ali@instatus.com",
-    location: "105.40.62.95",
-    occurred_at: "2022-01-05T14:31:13.607Z",
-    metadata: {
-      redirect: "/setup",
-      description: "User login succeeded.",
-      x_request_id: "req_W1Y13QOHMI5H",
-    },
-  },
-];
+const prisma = new PrismaClient();
 
 export async function GET(request: NextRequest) {
   // [DONE] Pagination: ?pageSize=20&page=1
@@ -205,39 +16,105 @@ export async function GET(request: NextRequest) {
   const page = toInt(params.get("page"), 1);
   const pageSize = toInt(params.get("pageSize"), 15);
 
-  const start = (page - 1) * pageSize;
-  const end = page * pageSize;
-
   const search = params.get("search");
 
-  let result = db;
-
-  if (search) {
-    const _search = search.toLowerCase();
-    result = result.filter(
-      ({
-        actor_name,
-        actor_email,
-        target_name,
-        object,
-        action: { name: action_name, object: action_object },
-      }) =>
-        [
-          actor_name,
-          target_name,
-          object,
-          action_name,
-          action_object,
-          ...(actor_email ? [actor_email] : []),
-        ].some((val) => val.toLowerCase().includes(_search))
-    );
+  function match<K extends string>(key: K) {
+    return {
+      [key]: { contains: search!, mode: "insensitive" },
+    } as {
+      [key in K]: { contains: string; mode: "insensitive" };
+    };
   }
 
-  return NextResponse.json(result.slice(start, end));
+  const data = await prisma.event.findMany({
+    ...(search
+      ? {
+          where: {
+            OR: [
+              match("object"),
+              { actor: match("name") },
+              { actor: match("email") },
+              { target: match("name") },
+              { action: match("name") },
+              { action: match("object") },
+            ],
+          },
+        }
+      : {}),
+    skip: (page - 1) * pageSize,
+    take: pageSize,
+    orderBy: {
+      occurred_at: "desc",
+    },
+    include: {
+      action: true,
+      actor: true,
+      target: true,
+    },
+  });
+
+  const events = eventResponseSchema.array().parse(
+    data.map(({ actor, target, ...rest }) => ({
+      ...rest,
+      actor_id: actor.id,
+      actor_name: actor.name,
+      actor_email: actor.email,
+      target_id: target.id,
+      target_name: target.name,
+    }))
+  );
+
+  return NextResponse.json(events); // result.slice(start, end));
 }
 
 export async function POST(request: NextRequest) {
-  return NextResponse.json({
-    hello: "World!",
+  const payload = await request.json();
+  const result = eventRequestSchema.safeParse(payload);
+
+  if (!result.success) {
+    return NextResponse.json({ error: result.error }, { status: 400 });
+  }
+
+  const { actor, action, target, ...rest } = result.data;
+
+  const _actor = await getActor(prisma, actor);
+  const _action = await getAction(prisma, action);
+  const _target = await getTarget(prisma, target);
+
+  const errors = [];
+
+  if (!_actor) errors.push("actor");
+  if (!_action) errors.push("action");
+  if (!_target) errors.push("target");
+
+  if (errors.length) {
+    return NextResponse.json(
+      {
+        error: {
+          message: `The following IDs [${errors.join(" ,")}] do not exist!`,
+        },
+      },
+      { status: 404 }
+    );
+  }
+
+  const data = await prisma.event.create({
+    data: {
+      id: makeId({ prefix: "evt_" }),
+      ...rest,
+      actionId: _action!.action.id,
+      actorId: _actor!.actor_id,
+      targetId: _target!.target_id,
+    },
   });
+
+  const newEvent = eventResponseSchema.parse({
+    id: data.id,
+    ...rest,
+    ..._actor,
+    ..._action,
+    ..._target,
+  });
+
+  return NextResponse.json({ newEvent });
 }
