@@ -5,7 +5,7 @@ interface DashboardControls {
   page: number;
   pageSize: number;
   live?: boolean;
-  search?: string;
+  search: string;
   actor_id?: string;
   target_id?: string;
   action_id?: string;
@@ -14,6 +14,7 @@ interface DashboardControls {
   setIsLoading(index: number, value: boolean): void;
   setSelected(id: string | undefined): void;
   loadMore(): void;
+  rollBack(index: number): void;
   setSearch(value: string): void;
   toggleLive(): void;
 }
@@ -24,12 +25,16 @@ export const useDashboardControls = create<DashboardControls>()((set) => {
   return {
     page: 1,
     pageSize: 15,
+    search: "",
     setIsLoading(index, value) {
       loadingList[index] = value;
       set({ isLoading: loadingList.some((l) => l) });
     },
     loadMore() {
       set(({ page }) => ({ page: page + 1 }));
+    },
+    rollBack(index) {
+      set(({ page }) => ({ page: page < index ? page : index - 1 }));
     },
     setSelected(selected) {
       set({ selected });
@@ -45,5 +50,3 @@ export const useDashboardControls = create<DashboardControls>()((set) => {
     },
   };
 });
-
-useDashboardControls.subscribe((state) => console.log(state));

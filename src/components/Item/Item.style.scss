@@ -1,6 +1,10 @@
 .Item {
   @apply flex gap-3 px-6 py-3 text-[--fg-color-2] bg-[--bg-color] relative;
 
+  &:not(.expanded):hover {
+    @apply bg-[--hover-color-2];
+  }
+
   &.expanded {
     --card-width: calc(100% + 2rem);
 
@@ -36,7 +40,115 @@
   }
 
   .avatar {
-    @apply w-8 aspect-square rounded-full bg-gradient-to-br from-orange-400 to-purple-700 flex items-center justify-center text-white font-semibold;
+    @apply w-8 aspect-square rounded-full flex items-center justify-center text-white font-semibold bg-gradient-to-br;
+
+    &.from {
+      &-red {
+        @apply from-red-400;
+      }
+      &-orange {
+        @apply from-orange-400;
+      }
+      &-amber {
+        @apply from-amber-400;
+      }
+      &-yellow {
+        @apply from-yellow-400;
+      }
+      &-lime {
+        @apply from-lime-400;
+      }
+      &-green {
+        @apply from-green-400;
+      }
+      &-emerald {
+        @apply from-emerald-400;
+      }
+      &-teal {
+        @apply from-teal-400;
+      }
+      &-cyan {
+        @apply from-cyan-400;
+      }
+      &-sky {
+        @apply from-sky-400;
+      }
+      &-blue {
+        @apply from-blue-400;
+      }
+      &-indigo {
+        @apply from-indigo-400;
+      }
+      &-violet {
+        @apply from-violet-400;
+      }
+      &-purple {
+        @apply from-purple-400;
+      }
+      &-fuchsia {
+        @apply from-fuchsia-400;
+      }
+      &-pink {
+        @apply from-pink-400;
+      }
+      &-rose {
+        @apply from-rose-400;
+      }
+    }
+
+    &.to {
+      &-red {
+        @apply to-red-700;
+      }
+      &-orange {
+        @apply to-orange-700;
+      }
+      &-amber {
+        @apply to-amber-700;
+      }
+      &-yellow {
+        @apply to-yellow-700;
+      }
+      &-lime {
+        @apply to-lime-700;
+      }
+      &-green {
+        @apply to-green-700;
+      }
+      &-emerald {
+        @apply to-emerald-700;
+      }
+      &-teal {
+        @apply to-teal-700;
+      }
+      &-cyan {
+        @apply to-cyan-700;
+      }
+      &-sky {
+        @apply to-sky-700;
+      }
+      &-blue {
+        @apply to-blue-700;
+      }
+      &-indigo {
+        @apply to-indigo-700;
+      }
+      &-violet {
+        @apply to-violet-700;
+      }
+      &-purple {
+        @apply to-purple-700;
+      }
+      &-fuchsia {
+        @apply to-fuchsia-700;
+      }
+      &-pink {
+        @apply to-pink-700;
+      }
+      &-rose {
+        @apply to-rose-700;
+      }
+    }
   }
 
   .action {

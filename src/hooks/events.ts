@@ -1,9 +1,10 @@
-import { useDeferredValue } from "react";
+import { useDeferredValue, useEffect } from "react";
 import useSWR from "swr";
 
-import { EventLog } from "@/types";
+import { eventResponseSchema } from "@/types";
 
 import { useDashboardControls } from ".";
+import { cachedData } from "@/utils";
 
 interface UseEventsOptions {
   page?: number;
@@ -17,13 +18,20 @@ export function useEvents(page: number) {
   const _search = useDashboardControls((store) => store.search);
   const search = useDeferredValue(_search);
 
-  return useSWR({ page, pageSize, search }, getEvents, {
+  const result = useSWR({ page, pageSize, search }, getEvents, {
     ...(live ? { refreshInterval: 1e4 } : {}),
   });
+
+  useEffect(() => {
+    result.data?.forEach((e) => cachedData.events.set(e.id, e));
+
+    return () => result.data?.forEach((e) => cachedData.events.delete(e.id));
+  }, [result.data]);
+
+  return result;
 }
 
 async function getEvents(options?: UseEventsOptions) {
-  console.log("getEvents");
   const { page = 1, pageSize = 15, search } = options || {};
 
   const params = new URLSearchParams([
@@ -33,8 +41,7 @@ async function getEvents(options?: UseEventsOptions) {
 
   if (search) params.set("search", `${search}`);
 
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
   const res = await fetch(`/events?${params.toString()}`);
-  return (await res.json()) as EventLog[];
+
+  return eventResponseSchema.array().parse(await res.json());
 }

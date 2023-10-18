@@ -6,7 +6,7 @@ import ArrowIcon from "@/assets/icons/arrow.svg";
 import CloseIcon from "@/assets/icons/close.svg";
 import IconButton from "@/components/IconButton";
 import { EventLog } from "@/types";
-import { cn } from "@/utils";
+import { cn, getColors } from "@/utils";
 
 interface ItemProps {
   expanded?: boolean;
@@ -34,21 +34,21 @@ export default function Item({
   select,
   unselect,
 }: ItemProps) {
-  occurred_at = useMemo(() => {
-    const date = new Date(occurred_at);
-
+  const date = useMemo(() => {
     const formatter = Intl.DateTimeFormat(undefined, {
       month: "short",
       day: "numeric",
-      ...(date.getFullYear() === new Date().getFullYear()
+      ...(occurred_at.getFullYear() === new Date().getFullYear()
         ? {}
         : { year: "numeric" }),
       hour: "numeric",
       minute: "2-digit",
     });
 
-    return formatter.format(date);
+    return formatter.format(occurred_at);
   }, [occurred_at]);
+
+  const [fromColor, toColor] = getColors(actor_email || actor_name);
 
   return (
     <div className={cn("Item", { expanded })}>
@@ -69,7 +69,7 @@ export default function Item({
           </>
         ) : (
           <>
-            <div className="avatar">
+            <div className={`avatar from-${fromColor} to-${toColor}`}>
               {(actor_email || actor_name).slice(0, 1).toUpperCase()}
             </div>
             <span>{actor_email || actor_name}</span>
@@ -101,9 +101,9 @@ export default function Item({
       </div>
       <div className="col">
         {expanded ? (
-          <Section title="DATE" data={[["Readable", occurred_at]]} />
+          <Section title="DATE" data={[["Readable", date]]} />
         ) : (
-          <span>{occurred_at}</span>
+          <span>{date}</span>
         )}
       </div>
       <IconButton

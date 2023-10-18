@@ -20,10 +20,6 @@ export default function ActivityLog() {
     return list;
   }, [page]);
 
-  useEffect(() => {
-    useDashboardControls.setState({ pageSize: 5 });
-  }, []);
-
   return (
     <div className="ActivityLog">
       <div className="header">
@@ -38,6 +34,9 @@ export default function ActivityLog() {
         {pages.map((i) => (
           <Page key={i} index={i} />
         ))}
+        {isLoading && page === 1 ? (
+          <p className="loadingMessage">Loading...</p> // TODO replace with skeleton
+        ) : null}
       </div>
       <div className="footer">
         <button className="load" onClick={loadMore} disabled={isLoading}>
@@ -57,12 +56,17 @@ function Page({ index }: { index: number }) {
   const selected = useDashboardControls((store) => store.selected);
   const setSelected = useDashboardControls((store) => store.setSelected);
   const setIsLoading = useDashboardControls((store) => store.setIsLoading);
+  const rollBack = useDashboardControls((store) => store.rollBack);
 
   const { data: events, error, isLoading } = useEvents(index);
 
   useEffect(() => {
     setIsLoading(index, isLoading);
   }, [index, isLoading, setIsLoading]);
+
+  useEffect(() => {
+    if (!events?.length && !error && !isLoading) rollBack(index);
+  }, [events, error, isLoading, rollBack, index]);
 
   return (
     <>
@@ -76,9 +80,6 @@ function Page({ index }: { index: number }) {
           unselect={() => setSelected(undefined)}
         />
       ))}
-      {isLoading && !events?.length ? (
-        <p className="loadingMessage">Loading...</p> // TODO replace with skeleton
-      ) : null}
     </>
   );
 }
