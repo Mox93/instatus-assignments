@@ -1,10 +1,14 @@
 import { PrismaClient } from "@prisma/client";
-import { NextResponse } from "next/server";
 
 import { ActionRequest, ActorRequest, TargetRequest } from "@/types";
 import { makeId } from ".";
 
-export async function getActor(prisma: PrismaClient, actor: ActorRequest) {
+export const prisma: PrismaClient =
+  (global as any).prisma || new PrismaClient();
+
+if (process.env.NODE_ENV === "development") (global as any).prisma = prisma;
+
+export async function getActor(actor: ActorRequest) {
   const _actor =
     typeof actor === "string"
       ? await prisma.actor.findUnique({
@@ -29,7 +33,7 @@ export async function getActor(prisma: PrismaClient, actor: ActorRequest) {
   );
 }
 
-export async function getAction(prisma: PrismaClient, action: ActionRequest) {
+export async function getAction(action: ActionRequest) {
   const _action =
     typeof action === "string"
       ? await prisma.action.findUnique({
@@ -52,7 +56,7 @@ export async function getAction(prisma: PrismaClient, action: ActionRequest) {
   );
 }
 
-export async function getTarget(prisma: PrismaClient, target: TargetRequest) {
+export async function getTarget(target: TargetRequest) {
   const _target =
     typeof target === "string"
       ? await prisma.target.findUnique({

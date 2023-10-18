@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 
-import { EventLog, eventRequestSchema, eventResponseSchema } from "@/types";
-import { getAction, getActor, getTarget, makeId, toInt } from "@/utils";
-
-const prisma = new PrismaClient();
+import { eventRequestSchema, eventResponseSchema } from "@/types";
+import { getAction, getActor, getTarget, makeId, prisma, toInt } from "@/utils";
 
 export async function GET(request: NextRequest) {
   // [DONE] Pagination: ?pageSize=20&page=1
@@ -64,7 +61,7 @@ export async function GET(request: NextRequest) {
     }))
   );
 
-  return NextResponse.json(events); // result.slice(start, end));
+  return NextResponse.json(events);
 }
 
 export async function POST(request: NextRequest) {
@@ -77,9 +74,9 @@ export async function POST(request: NextRequest) {
 
   const { actor, action, target, ...rest } = result.data;
 
-  const _actor = await getActor(prisma, actor);
-  const _action = await getAction(prisma, action);
-  const _target = await getTarget(prisma, target);
+  const _actor = await getActor(actor);
+  const _action = await getAction(action);
+  const _target = await getTarget(target);
 
   const errors = [];
 
